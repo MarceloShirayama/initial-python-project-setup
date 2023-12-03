@@ -1,0 +1,39 @@
+
+#!/bin/sh
+
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+NORMAL="\e[0m"
+
+EXIT_CODE=0
+
+check_format() {
+    black --check --diff --color . --exclude=.venv/
+    EXIT_CODE=$(($EXIT_CODE+$?))
+}
+
+check_lint(){
+    pylint --rcfile .pylintrc src/ tests/
+    EXIT_CODE=$(($EXIT_CODE+$?))
+}
+
+test_code(){
+    pytest -s -v --cov=src/ --cov-report=html --cov-report term-missing
+    EXIT_CODE=$(($EXIT_CODE+$?))
+}
+
+echo -e "\n${YELLOW}---- Check Format ----${NORMAL}\n"
+check_format
+echo -e "\n${YELLOW}---- Check Lint ----${NORMAL}\n"
+check_lint
+echo -e "\n${YELLOW}---- Test Code ----${NORMAL}\n"
+test_code
+
+if [[ $EXIT_CODE -gt 0 ]]; then
+    echo -e "\n${RED}Aborting commit!!!${NORMAL}\n"
+    exit 1
+else
+    echo -e "\n${GREEN}Success Commit!!!${NORMAL}\n"
+    exit 0
+fi

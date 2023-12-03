@@ -1,0 +1,18 @@
+{
+  "name": "initial-python-project-setup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "pytest -s -v",
+    "test:cov": "pytest -s -v --cov=src/ --cov-report=html --cov-report term-missing",
+    "test:unit": "pytest -s -v ./tests/unit/",
+    "test:integration": "pytest -s -v ./tests/integration/",
+    "format": "black src/",
+    "format:check": "black --check --diff --color . --exclude=.venv/",
+    "lint": "pylint --rcfile .pylintrc src/ tests/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
