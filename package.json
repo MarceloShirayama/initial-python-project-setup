@@ -10,7 +10,7 @@
     "test:integration": "pytest -s -v ./tests/integration/",
     "format": "black src/",
     "format:check": "black --check --diff --color . --exclude=.venv/",
-    "lint": "pylint --rcfile .pylintrc src/ tests/"
+    "lint:check": "pylint --rcfile .pylintrc src/ tests/"
   },
   "keywords": [],
   "author": "",
